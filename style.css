@@ -1,0 +1,75 @@
+body {
+    background-color: rgb(228, 155, 67);
+}
+
+h1 {
+    font-size: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    /* font-weight: 400px; its not working */
+
+}
+
+.outline {
+    background-color: gray;
+    border: 3px solid;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    /* important */
+    display: flex;
+
+    justify-content: center;
+    text-align: center;
+    width: 600px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+label {
+    font-size: 30px;
+}
+
+
+ul.wellul {
+    margin-top: 10px;
+    /* margin-left: 20px; */
+    /* width: 500px; */
+    /* padding-left: 10px; */
+
+}
+
+/* .wellli {} */
+
+.wellli h3 {
+
+    background-color: gray;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border: 3px solid;
+    border-radius: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.wellli a {
+    width: 60px;
+    height: 25px;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
+    }
+
+.delete {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

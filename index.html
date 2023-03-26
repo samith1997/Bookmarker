@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="./style.css">
+
+    <title>Things Todo</title>
+   </head>
+
+<body onload="fetchBookmarks()">
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <h1>Bookmarker</h1>
+                <div class="outline">
+                    <div class="col-12 col-md-8">
+                        <form id="myform">
+                            <label for="">Site name</label>
+                            <input type="text" id="sitename" class="form-control my-3" placeholder="Enter site name">
+                            <label for="">Site URL</label>
+                            <input type="text" id="siteurl" class="form-control my-3" placeholder="Enter site URL">
+                            <button type="submit" class="btn btn-primary"> Submit </button>
+                        </form>
+
+                    </div>
+                </div>
+                <ul class="wellul my-5 list-group">
+                    <li class="wellli" id="bookmarksResults"></li>
+
+                </ul>
+
+            </div>
+    </section>
+
+
+    <script>
+
+        document.getElementById('myform').addEventListener('submit', function (s) {
+            let siteName = document.getElementById('sitename').value;
+            let siteURL = document.getElementById('siteurl').value;
+
+            if (!validationform(siteName, siteURL)) {
+                return false;
+            }
+
+            let bookmark = {
+                name: siteName,
+                URL: siteURL
+            }
+
+
+            // console.log(bookmark);
+
+
+            if (localStorage.getItem('bookmarks') === null) {
+
+                let bookmarks = [];
+
+                bookmarks.push(bookmark);
+                localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+            }
+            else {
+                let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+
+                bookmarks.push(bookmark);
+
+                localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            }
+
+            document.getElementById('myform').reset();
+
+            fetchBookmarks();
+
+            s.preventDefault();
+        });
+
+
+
+        function deleteBookmark(URL) {
+            let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+            for (let i = 0; i < bookmarks.length; i++) {
+                if (bookmarks[i].URL == URL) {
+                    bookmarks.splice(i, 1);
+                }
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+        }
+
+        function fetchBookmarks() {
+
+            let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+
+            let bookmarksResults = document.getElementById('bookmarksResults');
+
+            bookmarksResults.innerHTML = '';
+
+            for (let i = 0; i < bookmarks.length; i++) {
+                let name = bookmarks[i].name;
+                let URL = bookmarks[i].URL;
+
+                bookmarksResults.innerHTML += '<li class"well">' +
+                    '<h3>' + name +
+                    '<a class="visit btn btn-success float-end" target="_blank" href="' + URL + '">Visit</a>' +
+                    '<a onclick="deleteBookmark(\'' + URL + '\')" class="delete btn btn-danger float-end"  href="">Delete</a>' +
+                    '</h3>' +
+                    '</li>';
+
+            }
+        }
+
+        function validationform(siteName, siteURL) {
+
+            if (!siteName || !siteURL) {
+                alert("Sitename or URLname is empty");
+                return false;
+            }
+
+            let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+            let regex = new RegExp(expression);
+            if (!siteURL.match(regex)) {
+                alert("Please enter valid URL.")
+                return false;
+            }
+
+            return true;
+
+        }
+
+
+
+    </script>
+  
+
+</body>
+
+</html>
